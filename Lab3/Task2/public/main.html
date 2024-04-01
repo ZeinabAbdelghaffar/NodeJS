@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Client Information</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css?family=Fjalla+One&display=swap");
+
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/38816/image-from-rawpixel-id-2210775-jpeg.jpg") center center no-repeat;
+      background-size: cover;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .contact-us {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 50px 100px;
+      border: 2px solid black;
+      box-shadow: 15px 15px 1px #ffa580, 15px 15px 1px 2px black;
+      border-radius: 10px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    input {
+      width: 100%;
+      font-size: 16px;
+      line-height: 28px;
+      font-family: "Fjalla One", sans-serif;
+      margin-bottom: 20px;
+      padding: 10px;
+      border: none;
+      border-bottom: 2px solid black;
+      background: rgba(248, 244, 229, 0.8);
+      outline: none;
+      color: black;
+    }
+
+    input::placeholder {
+      color: #555;
+    }
+
+    input:focus {
+      border-bottom: 2px solid #ffa580;
+    }
+
+    button {
+      width: 100%;
+      max-width: 200px;
+      margin-top: 20px;
+      padding: 10px;
+      background: #ffa580;
+      border: none;
+      border-radius: 5px;
+      font-family: "Fjalla One", sans-serif;
+      font-size: 16px;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background: #ff704d;
+    }
+  </style>
+</head>
+<body>
+  <div class="contact-us">
+    <h1>Enter Your Information</h1>
+    <form action="/submit" method="POST">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required><br><br>
+      <label for="mobile">Mobile Number:</label>
+      <input type="tel" id="mobile" name="mobile" required><br><br>
+      <label for="addr">Address:</label>
+      <input type="text" id="addr" name="addr" required><br><br>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required><br><br>
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+</body>
+</html>

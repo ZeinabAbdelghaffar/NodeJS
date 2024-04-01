@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css?family=Fjalla+One&display=swap");
+
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/38816/image-from-rawpixel-id-2210775-jpeg.jpg") center center no-repeat;
+      background-size: cover;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .contact-us {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 50px 100px;
+      border: 2px solid black;
+      box-shadow: 15px 15px 1px #ffa580, 15px 15px 1px 2px black;
+      border-radius: 10px;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #ffa580;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #ff704d;
+    }
+  </style>
+</head>
+<body>
+  <div class="contact-us">
+    <h1>Welcome <span id="name"></span></h1>
+    <p>Your entered data is as follows:</p>
+    <ul>
+      <li>Mobile Number: <span id="mobile"></span></li>
+      <li>Address: <span id="addr"></span></li>
+      <li>Email: <span id="email"></span></li>
+    </ul>
+    <button onclick="fetchClients()">Get Clients Info</button>
+    <ul id="clients"></ul>
+  </div>
+  <script>
+    function fetchClients() {
+      fetch('/clients')
+        .then(response => response.json())
+        .then(clients => {
+          const clientsList = document.getElementById('clients');
+          clientsList.innerHTML = '';
+          clients.forEach(client => {
+            const li = document.createElement('li');
+            li.textContent = `${client.name}: ${client.mobile}, ${client.addr}, ${client.email}`;
+            clientsList.appendChild(li);
+          });
+        });
+    }
+
+    document.getElementById('name').textContent = new URLSearchParams(window.location.search).get('name');
+    document.getElementById('mobile').textContent = new URLSearchParams(window.location.search).get('mobile');
+    document.getElementById('addr').textContent = new URLSearchParams(window.location.search).get('addr');
+    document.getElementById('email').textContent = new URLSearchParams(window.location.search).get('email');
+  </script>
+</body>
+</html>
