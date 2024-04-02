@@ -6,6 +6,7 @@ This repository contains solutions for Node.js labs.
 
 ## Lab 1
 Lab 1 is a basic HTTP server that performs arithmetic operations based on the URL path. It parses the request URL to extract the operation and numbers, calculates the result, and writes it to a file. The server listens on port 3000.
+
 ---
 
 ## Lab 2
