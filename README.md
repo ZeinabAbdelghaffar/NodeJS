@@ -30,3 +30,25 @@ Lab 3 is similar to Lab 2 but uses Express.js. It also includes an HTTP server t
 ![image](https://github.com/ZeinabAbdelghaffar/NodeJS/assets/87963230/10403b58-175c-4c1a-86be-9406ea5ab159)
 ![image](https://github.com/ZeinabAbdelghaffar/NodeJS/assets/87963230/8381aa1e-839d-4502-91ac-23f2ac72dfa5)
 ![image](https://github.com/ZeinabAbdelghaffar/NodeJS/assets/87963230/ccd2422c-8278-4f0e-ab38-92610a7fb6e6)
+---
+
+## Lab 4 : Chat App
+This is a simple chat application built with Socket.io, Express, and Mongoose. It allows participants with the same room code to chat and see each other's messages.
+
+## Features
+- Real-time chat functionality using Socket.io
+- Participants can enter their name and the room code to join a chat room
+- Messages are displayed with the participant's name if they have the same room code
+- Messages are stored in a MongoDB database using Mongoose
+
+## Technologies Used
+- Node.js
+- Express
+- Socket.io
+- Mongoose
+- MongoDB
+
+- The server listens on port 3000.
+
+![image](https://github.com/ZeinabAbdelghaffar/NodeJS/assets/87963230/b017ae85-ba1d-42dc-b176-b02cdc3ea398)
+![image](https://github.com/ZeinabAbdelghaffar/NodeJS/assets/87963230/4e3c0e3d-7500-494b-bd0e-ef9634ce01be)
