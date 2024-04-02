@@ -18,8 +18,6 @@ The flight ticket module contains information about the seat number, flight numb
 ### Task 2
 Users can display, get, and update the information of their ticket.
 
-### Bonus
-Create your own module that can be used in flight tickets reservation.
 ---
 
 ## Lab 3
