@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat App</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css?family=Fjalla+One&display=swap");
+
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/38816/image-from-rawpixel-id-2210775-jpeg.jpg") center center no-repeat;
+      background-size: cover;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .contact-us {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 50px 100px;
+      border: 2px solid black;
+      box-shadow: 15px 15px 1px #ffa580, 15px 15px 1px 2px black;
+      border-radius: 10px;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #ffa580;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #ff704d;
+    }
+  </style>
+</head>
+<body>
+  <div id="joinRoomForm" class="contact-us">
+    <h1>Join a Room</h1>
+    <input type="text" id="usernameInput" placeholder="Your Name">
+    <input type="text" id="roomCodeInput" placeholder="Room Code">
+    <button onclick="joinRoom()">Join Room</button>
+  </div>
+
+  <div id="chat" style="display: none;" class="contact-us">
+    <h1><div id="roomCode" class="room-code"></div></h1>
+    <div id="messages"></div>
+    <input type="text" id="messageInput" placeholder="Message">
+    <button onclick="sendMessage()">Send</button>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    const joinRoomForm = document.getElementById('joinRoomForm');
+    const chat = document.getElementById('chat');
+    const usernameInput = document.getElementById('usernameInput');
+    const roomCodeInput = document.getElementById('roomCodeInput');
+    const messages = document.getElementById('messages');
+    const messageInput = document.getElementById('messageInput');
+
+    function joinRoom() {
+      const username = usernameInput.value.trim();
+      const roomCode = roomCodeInput.value.trim();
+      if (username && roomCode) {
+        socket.emit('joinRoom', { username, roomCode });
+      }
+    }
+
+    socket.on('joinRoomSuccess', () => {
+      joinRoomForm.style.display = 'none';
+      chat.style.display = 'block';
+      document.getElementById('roomCode').innerText = `Room Code: ${roomCodeInput.value.trim()}`;
+    });
+
+    socket.on('joinRoomFail', () => {
+      alert('Failed to join room. Please check your room code and try again.');
+    });
+
+    socket.on('previousMessages', (messages) => {
+      messages.forEach(message => {
+        const element = document.createElement('div');
+        element.textContent = `${message.name}: ${message.message}`;
+        messages.appendChild(element);
+      });
+    });
+
+    socket.on('message', (data) => {
+      const element = document.createElement('div');
+      element.textContent = `${data.name}: ${data.message}`;
+      messages.appendChild(element);
+    });
+
+    function sendMessage() {
+      const message = messageInput.value.trim();
+      if (message) {
+        socket.emit('message', {
+          name: usernameInput.value.trim(),
+          message: message
+        });
+        messageInput.value = '';
+      }
+    }
+  </script>
+</body>
+</html>
